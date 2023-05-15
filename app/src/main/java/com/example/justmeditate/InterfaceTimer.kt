@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.NonCancellable.start
 import android.widget.TextView
 
 class InterfaceTimer : AppCompatActivity() {
