@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         title = "Just Meditate"
         val button: Button = findViewById(R.id.start_button)
         button.setOnClickListener {
-            val intent = Intent(this@MainActivity, InterfaceTimer::class:java)
+            val intent = Intent(this@MainActivity, InterfaceTimer::class.java)
             startActivity(intent)
         }
     }
