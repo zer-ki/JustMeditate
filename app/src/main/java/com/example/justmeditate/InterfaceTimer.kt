@@ -6,6 +6,7 @@ import android.os.CountDownTimer
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
+import java.util.concurrent.TimeUnit
 
 class InterfaceTimer : AppCompatActivity() {
     lateinit var textView : TextView
@@ -16,8 +17,21 @@ class InterfaceTimer : AppCompatActivity() {
         textView = findViewById(R.id.timer_text)
         title="Meditating"
         timer = object : CountDownTimer(30000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                textView.text = (millisUntilFinished / 1000).toString()
+            override fun onTick(millis: Long) {
+                val hms = String.format("%02d:%02d:%02d:%02d",
+                    TimeUnit.HOURS.toDays(TimeUnit.MILLISECONDS.toDays(millis)),
+                    (TimeUnit.MILLISECONDS.toHours(millis) - TimeUnit.DAYS.toHours(
+                    TimeUnit.MILLISECONDS.toDays(
+                        millis
+                    )
+                )),
+                    (TimeUnit.MILLISECONDS.toMinutes(millis) -
+                            TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis))),
+                    (TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(
+                        TimeUnit.MILLISECONDS.toMinutes(millis)
+                    ))
+                )
+                textView.text = (hms)
             }
 
             override fun onFinish() {
