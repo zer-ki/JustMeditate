@@ -16,7 +16,7 @@ class InterfaceTimer : AppCompatActivity() {
         setContentView(R.layout.timer_interface)
         textView = findViewById(R.id.textView)
         title="Meditating"
-        timer = object : CountDownTimer(30000, 10000) {
+        timer = object : CountDownTimer(30000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 textView.text = (millisUntilFinished / 1000).toString()
             }
