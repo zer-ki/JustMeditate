@@ -14,7 +14,7 @@ class InterfaceTimer : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.timer_interface)
-        textView = findViewById(R.id.textView)
+        textView = findViewById(R.id.timer_text)
         title="Meditating"
         timer = object : CountDownTimer(30000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
