@@ -16,10 +16,10 @@ class InterfaceTimer : AppCompatActivity() {
         setContentView(R.layout.timer_interface)
         textView = findViewById(R.id.timer_text)
         title="Meditating"
-        timer = object : CountDownTimer(30000, 1000) {
+        val hours = intent.getIntExtra("hour",10)
+        timer = object : CountDownTimer((hours*10000).toLong(), 1000) {
             override fun onTick(millis: Long) {
-                val hms = String.format("%02d:%02d:%02d:%02d",
-                    TimeUnit.HOURS.toDays(TimeUnit.MILLISECONDS.toDays(millis)),
+                val hms = String.format("%02d:%02d:%02d",
                     (TimeUnit.MILLISECONDS.toHours(millis) - TimeUnit.DAYS.toHours(
                     TimeUnit.MILLISECONDS.toDays(
                         millis
