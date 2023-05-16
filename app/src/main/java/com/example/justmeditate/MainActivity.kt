@@ -16,7 +16,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, InterfaceTimer::class.java)
             startActivity(intent)
         }
-
+        setHourPicker()
+        setMinutePicker()
+        setSecondPicker()
     }
     fun setHourPicker(){
         val hourPicker: NumberPicker = findViewById(R.id.picker_hour)
