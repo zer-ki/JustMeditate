@@ -10,12 +10,12 @@
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="Select meditation length"
+        android:layout_marginBottom="50dp"
+        android:text="Select meditation time"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/picker_minute" />
     <NumberPicker
         android:id="@+id/picker_hour"
         android:layout_width="wrap_content"
