@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         secondPicker.maxValue = 59
         secondPicker.wrapSelectorWheel = true
 
-        val button: Button = findViewById(R.id.start_button)
+        val button: Button = findViewById(R.id.button_start)
         button.setOnClickListener {
 
             val hour = hourPicker.value

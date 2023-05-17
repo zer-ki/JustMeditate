@@ -41,7 +41,7 @@ class InterfaceTimer : AppCompatActivity() {
                 }
             }
 
-        val button: Button = findViewById(R.id.stop_button)
+        val button: Button = findViewById(R.id.button_stop)
         button.setOnClickListener {
             val intent = Intent(this@InterfaceTimer, MainActivity::class.java)
             startActivity(intent)
