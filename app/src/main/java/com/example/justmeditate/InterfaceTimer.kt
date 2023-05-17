@@ -17,7 +17,9 @@ class InterfaceTimer : AppCompatActivity() {
         textView = findViewById(R.id.timer_text)
         title="Meditating"
         val hours = intent.getIntExtra("hour", 0)
-            timer = object : CountDownTimer(hours*1000.toLong(), 1000) {
+        val minutes = intent.getIntExtra("minute", 0)
+        val seconds = intent.getIntExtra("second", 0)
+            timer = object : CountDownTimer(hours*3600000+minutes*60000+seconds*1000.toLong(), 1000) {
                 override fun onTick(millis: Long) {
                     val hms = String.format("%02d:%02d:%02d",
                         (TimeUnit.MILLISECONDS.toHours(millis) - TimeUnit.DAYS.toHours(
