@@ -12,7 +12,7 @@ import kotlin.properties.Delegates
 class InterfaceTimer : AppCompatActivity() {
     lateinit var textView : TextView
     private lateinit var timer: CountDownTimer
-    private var timeLeftInMilis : Int = 0
+    private var timeLeftInMilis : Long = 0
     private var isTimerRunning : Boolean = false
     private lateinit var pauseButton : Button
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,12 +23,16 @@ class InterfaceTimer : AppCompatActivity() {
         val hours = intent.getIntExtra("hour", 0)
         val minutes = intent.getIntExtra("minute", 0)
         val seconds = intent.getIntExtra("second", 0)
-        timeLeftInMilis = (hours*3600000+minutes*60000+seconds*1000)
+        timeLeftInMilis = (hours*3600000+minutes*60000+seconds*1000).toLong()
         startTimer()
 
         pauseButton = findViewById(R.id.button_pause)
         pauseButton.setOnClickListener {
-            pauseTimer()
+            if(isTimerRunning)
+                pauseTimer()
+            else{
+                startTimer()
+                pauseButton.text = "Pause"}
         }
 
         val stopButton: Button = findViewById(R.id.button_stop)
@@ -40,42 +44,40 @@ class InterfaceTimer : AppCompatActivity() {
     }
     private fun startTimer(){
         isTimerRunning = true
-        timer = object : CountDownTimer(timeLeftInMilis.toLong(), 1000) {
+        timer = object : CountDownTimer(timeLeftInMilis, 1000) {
             override fun onTick(millis: Long) {
-                val hms = String.format("%02d:%02d:%02d",
-                    (TimeUnit.MILLISECONDS.toHours(millis) - TimeUnit.DAYS.toHours(
-                        TimeUnit.MILLISECONDS.toDays(
-                            millis
-                        )
-                    )),
-                    (TimeUnit.MILLISECONDS.toMinutes(millis) -
-                            TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis))),
-                    (TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(
-                        TimeUnit.MILLISECONDS.toMinutes(millis)
-                    ))
-                )
-                textView.text = (hms)
+                timeLeftInMilis = millis
+                updateTimerText()
             }
-
             override fun onFinish() {
                 textView.text = "Finished!"
                 isTimerRunning = false
             }
-        }
+        }.start()
     }
 
     fun pauseTimer(){
-        if(isTimerRunning){
             timer.cancel()
             pauseButton.text = "Resume"
             isTimerRunning = false
         }
-        else{
-            timer.start()
-            pauseButton.text = "Pause"
-            isTimerRunning = true
-        }
+
+    fun updateTimerText(){
+        val hms = String.format("%02d:%02d:%02d",
+            (TimeUnit.MILLISECONDS.toHours(timeLeftInMilis) - TimeUnit.DAYS.toHours(
+                TimeUnit.MILLISECONDS.toDays(
+                    timeLeftInMilis
+                )
+            )),
+            (TimeUnit.MILLISECONDS.toMinutes(timeLeftInMilis) -
+                    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeLeftInMilis))),
+            (TimeUnit.MILLISECONDS.toSeconds(timeLeftInMilis) - TimeUnit.MINUTES.toSeconds(
+                TimeUnit.MILLISECONDS.toMinutes(timeLeftInMilis)
+            ))
+        )
+        textView.text = (hms)
     }
+
     override fun onStart() {
         super.onStart()
         timer.start()
