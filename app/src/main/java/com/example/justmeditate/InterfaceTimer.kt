@@ -3,6 +3,7 @@ package com.example.justmeditate
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
@@ -15,6 +16,7 @@ class InterfaceTimer : AppCompatActivity() {
     private var timeLeftInMilis : Long = 0
     private var isTimerRunning : Boolean = false
     private lateinit var pauseButton : Button
+    private lateinit var stopButton: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.timer_interface)
@@ -28,14 +30,16 @@ class InterfaceTimer : AppCompatActivity() {
 
         pauseButton = findViewById(R.id.button_pause)
         pauseButton.setOnClickListener {
-            if(isTimerRunning)
+            if(isTimerRunning){
                 pauseTimer()
+                stopButton.visibility = View.VISIBLE}
             else{
                 startTimer()
-                pauseButton.text = "Pause"}
+                pauseButton.text = "Pause"
+                stopButton.visibility = View.INVISIBLE}
         }
 
-        val stopButton: Button = findViewById(R.id.button_stop)
+        stopButton = findViewById(R.id.button_stop)
         stopButton.setOnClickListener {
             val intent = Intent(this@InterfaceTimer, MainActivity::class.java)
             startActivity(intent)
@@ -56,7 +60,7 @@ class InterfaceTimer : AppCompatActivity() {
         }.start()
     }
 
-    fun pauseTimer(){
+    private fun pauseTimer(){
             timer.cancel()
             pauseButton.text = "Resume"
             isTimerRunning = false
