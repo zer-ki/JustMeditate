@@ -12,7 +12,9 @@ import kotlin.properties.Delegates
 class InterfaceTimer : AppCompatActivity() {
     lateinit var textView : TextView
     private lateinit var timer: CountDownTimer
-    private var timeLeftInMilis by Delegates.notNull<Int>()
+    private var timeLeftInMilis : Int = 0
+    private var isTimerRunning : Boolean = false
+    private lateinit var pauseButton : Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.timer_interface)
@@ -24,14 +26,20 @@ class InterfaceTimer : AppCompatActivity() {
         timeLeftInMilis = (hours*3600000+minutes*60000+seconds*1000)
         startTimer()
 
-        val button: Button = findViewById(R.id.button_stop)
-        button.setOnClickListener {
+        pauseButton = findViewById(R.id.button_pause)
+        pauseButton.setOnClickListener {
+            pauseTimer()
+        }
+
+        val stopButton: Button = findViewById(R.id.button_stop)
+        stopButton.setOnClickListener {
             val intent = Intent(this@InterfaceTimer, MainActivity::class.java)
             startActivity(intent)
         }
 
     }
     private fun startTimer(){
+        isTimerRunning = true
         timer = object : CountDownTimer(timeLeftInMilis.toLong(), 1000) {
             override fun onTick(millis: Long) {
                 val hms = String.format("%02d:%02d:%02d",
@@ -51,7 +59,21 @@ class InterfaceTimer : AppCompatActivity() {
 
             override fun onFinish() {
                 textView.text = "Finished!"
+                isTimerRunning = false
             }
+        }
+    }
+
+    fun pauseTimer(){
+        if(isTimerRunning){
+            timer.cancel()
+            pauseButton.text = "Resume"
+            isTimerRunning = false
+        }
+        else{
+            timer.start()
+            pauseButton.text = "Pause"
+            isTimerRunning = true
         }
     }
     override fun onStart() {
