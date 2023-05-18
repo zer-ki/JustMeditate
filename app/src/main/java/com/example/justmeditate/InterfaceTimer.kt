@@ -26,9 +26,14 @@ class InterfaceTimer : AppCompatActivity() {
         setContentView(R.layout.timer_interface)
         textView = findViewById(R.id.timer_text)
         title="Meditating"
+
+        //Get values from the intent
+
         val hours = intent.getIntExtra("hour", 0)
         val minutes = intent.getIntExtra("minute", 0)
         val seconds = intent.getIntExtra("second", 0)
+
+        //put values into a variable recognized by the timer
         timeLeftInMilis = (hours*3600000+minutes*60000+seconds*1000).toLong()
         startTimer()
 
@@ -48,7 +53,7 @@ class InterfaceTimer : AppCompatActivity() {
             if(this@InterfaceTimer::mediaPlayer.isInitialized){
                 mediaPlayer.stop()
             }
-
+            //finish and go back to previous activity
             finish()
         }
 
@@ -63,6 +68,8 @@ class InterfaceTimer : AppCompatActivity() {
             override fun onFinish() {
                 textView.text = "Finished!"
                 isTimerRunning = false
+
+                //play the sound when finished
                 if(!this@InterfaceTimer::mediaPlayer.isInitialized){
                     mediaPlayer= MediaPlayer.create(this@InterfaceTimer, R.raw.standing_bell)
                     mediaPlayer.start()
@@ -85,6 +92,7 @@ class InterfaceTimer : AppCompatActivity() {
         }
 
     fun updateTimerText(){
+        //Change the milliseconds to correct format for displaying
         val hms = String.format("%02d:%02d:%02d",
             (TimeUnit.MILLISECONDS.toHours(timeLeftInMilis) - TimeUnit.DAYS.toHours(
                 TimeUnit.MILLISECONDS.toDays(
