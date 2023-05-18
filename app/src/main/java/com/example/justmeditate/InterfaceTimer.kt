@@ -19,7 +19,7 @@ class InterfaceTimer : AppCompatActivity() {
     private var isTimerRunning : Boolean = false
     private lateinit var pauseButton : Button
     private lateinit var stopButton: Button
-    private lateinit var mediaPlayer: MediaPlayer
+    lateinit var mediaPlayer: MediaPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +60,13 @@ class InterfaceTimer : AppCompatActivity() {
             override fun onFinish() {
                 textView.text = "Finished!"
                 isTimerRunning = false
-                mediaPlayer= MediaPlayer.create(this@InterfaceTimer, R.raw.standing_bell)
+                if(!this@InterfaceTimer::mediaPlayer.isInitialized){
+                    mediaPlayer= MediaPlayer.create(this@InterfaceTimer, R.raw.standing_bell)
+                    mediaPlayer.start()
+                } else {
+                    mediaPlayer.start()
+                }
+
                 mediaPlayer.start()
                 stopButton.text = "Go back"
                 stopButton.visibility = View.VISIBLE
@@ -99,8 +105,6 @@ class InterfaceTimer : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         timer.cancel()
-        mediaPlayer.stop()
-        mediaPlayer.release()
     }
 
     override fun onDestroy() {
