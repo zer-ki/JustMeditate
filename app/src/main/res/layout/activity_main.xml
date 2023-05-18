@@ -66,4 +66,35 @@
         app:layout_constraintStart_toEndOf="@id/picker_minute"
         app:layout_constraintEnd_toStartOf="@id/picker_second"/>
 
+    <TextView
+        android:id="@+id/ambience_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select ambience"
+        android:textSize="20dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_start"/>
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:checkedButton="@id/radio_button_empty"
+        app:layout_constraintTop_toBottomOf="@id/ambience_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <RadioButton
+            android:id="@+id/radio_button_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_empty"
+            android:layout_weight="1"/>
+        <RadioButton
+            android:id="@+id/radio_button_grass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_grass"
+            android:layout_weight="1"/>
+    </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>
