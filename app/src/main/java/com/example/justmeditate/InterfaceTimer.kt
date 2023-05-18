@@ -1,12 +1,14 @@
 package com.example.justmeditate
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
+import androidx.core.content.ContentProviderCompat.requireContext
 import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
 
@@ -17,6 +19,8 @@ class InterfaceTimer : AppCompatActivity() {
     private var isTimerRunning : Boolean = false
     private lateinit var pauseButton : Button
     private lateinit var stopButton: Button
+    private lateinit var mediaPlayer: MediaPlayer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.timer_interface)
@@ -56,6 +60,8 @@ class InterfaceTimer : AppCompatActivity() {
             override fun onFinish() {
                 textView.text = "Finished!"
                 isTimerRunning = false
+                mediaPlayer= MediaPlayer.create(this@InterfaceTimer, R.raw.standing_bell)
+                mediaPlayer.start()
             }
         }.start()
     }
@@ -90,5 +96,11 @@ class InterfaceTimer : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         timer.cancel()
+    }
+
+    override fun onDestroy() {
+        mediaPlayer.stop()
+        mediaPlayer.release()
+        super.onDestroy()
     }
 }
