@@ -62,6 +62,9 @@ class InterfaceTimer : AppCompatActivity() {
                 isTimerRunning = false
                 mediaPlayer= MediaPlayer.create(this@InterfaceTimer, R.raw.standing_bell)
                 mediaPlayer.start()
+                stopButton.text = "Go back"
+                stopButton.visibility = View.VISIBLE
+                pauseButton.visibility = View.INVISIBLE
             }
         }.start()
     }
@@ -96,6 +99,8 @@ class InterfaceTimer : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         timer.cancel()
+        mediaPlayer.stop()
+        mediaPlayer.release()
     }
 
     override fun onDestroy() {
