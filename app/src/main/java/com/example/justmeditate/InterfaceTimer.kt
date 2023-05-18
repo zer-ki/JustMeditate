@@ -45,6 +45,10 @@ class InterfaceTimer : AppCompatActivity() {
 
         stopButton = findViewById(R.id.button_stop)
         stopButton.setOnClickListener {
+            if(this@InterfaceTimer::mediaPlayer.isInitialized){
+                mediaPlayer.stop()
+            }
+
             finish()
         }
 
@@ -107,8 +111,6 @@ class InterfaceTimer : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        mediaPlayer.stop()
-        mediaPlayer.release()
         super.onDestroy()
     }
 }
