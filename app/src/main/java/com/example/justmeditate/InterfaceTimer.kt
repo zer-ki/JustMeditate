@@ -45,11 +45,7 @@ class InterfaceTimer : AppCompatActivity() {
 
         stopButton = findViewById(R.id.button_stop)
         stopButton.setOnClickListener {
-            if(this@InterfaceTimer::mediaPlayer.isInitialized){
-                mediaPlayer.stop()
-            }
-            val intent = Intent(this@InterfaceTimer, MainActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
     }
