@@ -19,7 +19,8 @@ class InterfaceTimer : AppCompatActivity() {
     private var isTimerRunning : Boolean = false
     private lateinit var pauseButton : Button
     private lateinit var stopButton: Button
-    lateinit var mediaPlayer: MediaPlayer
+    lateinit var mediaPlayerBell: MediaPlayer
+    lateinit var mediaPlayerAmbience: MediaPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,24 +37,28 @@ class InterfaceTimer : AppCompatActivity() {
         //put values into a variable recognized by the timer
         timeLeftInMilis = (hours*3600000+minutes*60000+seconds*1000).toLong()
         startTimer()
+        playAmbience()
 
         pauseButton = findViewById(R.id.button_pause)
         pauseButton.setOnClickListener {
             if(isTimerRunning){
                 pauseTimer()
+                mediaPlayerAmbience.stop()
                 stopButton.visibility = View.VISIBLE}
             else{
                 startTimer()
+                playAmbience()
                 pauseButton.text = "Pause"
                 stopButton.visibility = View.INVISIBLE}
         }
 
         stopButton = findViewById(R.id.button_stop)
         stopButton.setOnClickListener {
-            if(this@InterfaceTimer::mediaPlayer.isInitialized){
-                mediaPlayer.stop()
+            if(this@InterfaceTimer::mediaPlayerBell.isInitialized){
+                mediaPlayerBell.stop()
             }
             //finish and go back to previous activity
+            mediaPlayerAmbience.stop()
             finish()
         }
 
@@ -70,14 +75,14 @@ class InterfaceTimer : AppCompatActivity() {
                 isTimerRunning = false
 
                 //play the sound when finished
-                if(!this@InterfaceTimer::mediaPlayer.isInitialized){
-                    mediaPlayer= MediaPlayer.create(this@InterfaceTimer, R.raw.standing_bell)
-                    mediaPlayer.start()
+                if(!this@InterfaceTimer::mediaPlayerBell.isInitialized){
+                    mediaPlayerBell= MediaPlayer.create(this@InterfaceTimer, R.raw.standing_bell)
+                    mediaPlayerBell.start()
                 } else {
-                    mediaPlayer.start()
+                    mediaPlayerBell.start()
                 }
 
-                mediaPlayer.start()
+                mediaPlayerBell.start()
                 stopButton.text = "Go back"
                 stopButton.visibility = View.VISIBLE
                 pauseButton.visibility = View.INVISIBLE
@@ -106,6 +111,17 @@ class InterfaceTimer : AppCompatActivity() {
             ))
         )
         textView.text = (hms)
+    }
+
+    fun playAmbience() {
+        if(!this@InterfaceTimer::mediaPlayerAmbience.isInitialized){
+            mediaPlayerAmbience= MediaPlayer.create(this@InterfaceTimer, R.raw.spring_loop)
+            mediaPlayerAmbience.isLooping=true
+            mediaPlayerAmbience.start()
+        } else {
+            mediaPlayerAmbience.isLooping=true
+            mediaPlayerAmbience.start()
+        }
     }
 
     override fun onStart() {
