@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.NumberPicker
+import android.widget.RadioButton
+import android.widget.RadioGroup
 
 class MainActivity : AppCompatActivity() {
     lateinit var hourPicker: NumberPicker
     lateinit var minutePicker: NumberPicker
     lateinit var secondPicker: NumberPicker
+    lateinit var radioGroup: RadioGroup
+    private var selectedRadioButtonId: Int = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,6 +34,8 @@ class MainActivity : AppCompatActivity() {
         secondPicker.maxValue = 59
         secondPicker.wrapSelectorWheel = true
 
+        radioGroup = findViewById(R.id.radio_group)
+
         val button: Button = findViewById(R.id.button_start)
         button.setOnClickListener {
 
@@ -39,10 +45,13 @@ class MainActivity : AppCompatActivity() {
 
             val second = secondPicker.value
 
+            selectedRadioButtonId = radioGroup.checkedRadioButtonId
+
             val intent = Intent(this@MainActivity, InterfaceTimer::class.java)
             intent.putExtra("hour", hour)
             intent.putExtra("minute", minute)
             intent.putExtra("second", second)
+            intent.putExtra("selectedRadioButtonId", selectedRadioButtonId)
             startActivity(intent)
         }
     }
