@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
@@ -16,6 +17,7 @@ class InterfaceTimer : AppCompatActivity() {
     lateinit var textView : TextView
     private lateinit var timer: CountDownTimer
     private var timeLeftInMilis : Long = 0
+    var ambientId = 0
     private var isTimerRunning : Boolean = false
     private lateinit var pauseButton : Button
     private lateinit var stopButton: Button
@@ -33,17 +35,18 @@ class InterfaceTimer : AppCompatActivity() {
         val hours = intent.getIntExtra("hour", 0)
         val minutes = intent.getIntExtra("minute", 0)
         val seconds = intent.getIntExtra("second", 0)
+        ambientId = intent.getIntExtra("selectedRadioButtonId", 0 )
 
         //put values into a variable recognized by the timer
         timeLeftInMilis = (hours*3600000+minutes*60000+seconds*1000).toLong()
         startTimer()
-        playAmbience()
+        if (ambientId == 2131231225) playAmbience()
+
 
         pauseButton = findViewById(R.id.button_pause)
         pauseButton.setOnClickListener {
             if(isTimerRunning){
                 pauseTimer()
-                mediaPlayerAmbience.stop()
                 stopButton.visibility = View.VISIBLE}
             else{
                 startTimer()
@@ -58,7 +61,9 @@ class InterfaceTimer : AppCompatActivity() {
                 mediaPlayerBell.stop()
             }
             //finish and go back to previous activity
-            mediaPlayerAmbience.stop()
+            if(this@InterfaceTimer::mediaPlayerAmbience.isInitialized) {
+                mediaPlayerAmbience.stop()
+            }
             finish()
         }
 
@@ -71,7 +76,7 @@ class InterfaceTimer : AppCompatActivity() {
                 updateTimerText()
             }
             override fun onFinish() {
-                textView.text = "Finished!"
+                textView.text = ambientId.toString()
                 isTimerRunning = false
 
                 //play the sound when finished
@@ -82,7 +87,7 @@ class InterfaceTimer : AppCompatActivity() {
                     mediaPlayerBell.start()
                 }
 
-                mediaPlayerBell.start()
+
                 stopButton.text = "Go back"
                 stopButton.visibility = View.VISIBLE
                 pauseButton.visibility = View.INVISIBLE
@@ -92,6 +97,7 @@ class InterfaceTimer : AppCompatActivity() {
 
     private fun pauseTimer(){
             timer.cancel()
+            mediaPlayerAmbience.pause()
             pauseButton.text = "Resume"
             isTimerRunning = false
         }

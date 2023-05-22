@@ -89,13 +89,13 @@
             android:id="@+id/radio_button_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="@drawable/selector_empty"
+            android:text = "None"
             android:layout_weight="1"/>
         <RadioButton
             android:id="@+id/radio_button_grass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="@drawable/selector_grass"
+            android:text = "Spring"
             android:layout_weight="1"/>
     </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>
