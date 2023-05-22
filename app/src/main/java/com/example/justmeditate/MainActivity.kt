@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.NumberPicker
-import android.widget.RadioButton
 import android.widget.RadioGroup
 
 class MainActivity : AppCompatActivity() {

@@ -52,7 +52,7 @@ class InterfaceTimer : AppCompatActivity() {
                 startTimer()
                 if(this@InterfaceTimer::mediaPlayerAmbience.isInitialized) {
                 mediaPlayerAmbience.start()}
-                pauseButton.text = "Pause"
+                pauseButton.text = getString(R.string.pause)
                 stopButton.visibility = View.INVISIBLE}
         }
 
@@ -77,7 +77,7 @@ class InterfaceTimer : AppCompatActivity() {
                 updateTimerText()
             }
             override fun onFinish() {
-                textView.text = "Finished!"
+                textView.text = getString(R.string.finished)
                 isTimerRunning = false
 
                 //play the sound when finished
@@ -89,7 +89,7 @@ class InterfaceTimer : AppCompatActivity() {
                 }
 
 
-                stopButton.text = "Go back"
+                stopButton.text = getString(R.string.go_back)
                 stopButton.visibility = View.VISIBLE
                 pauseButton.visibility = View.INVISIBLE
             }
@@ -101,7 +101,7 @@ class InterfaceTimer : AppCompatActivity() {
             if(this@InterfaceTimer::mediaPlayerAmbience.isInitialized) {
                 mediaPlayerAmbience.pause()
             }
-            pauseButton.text = "Resume"
+            pauseButton.text = getString(R.string.resume)
             isTimerRunning = false
         }
 

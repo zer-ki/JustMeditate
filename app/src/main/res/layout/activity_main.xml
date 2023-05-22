@@ -11,8 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
-        android:text="Select meditation time"
-        android:textSize="20dp"
+        android:text="@string/select_meditation_time"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/picker_minute" />
@@ -41,7 +41,7 @@
         android:id="@+id/button_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start meditation"
+        android:text="@string/start_meditation"
         android:layout_marginTop="100dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,8 +50,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=":"
-        android:textSize="40dp"
+        android:text="@string/divider"
+        android:textSize="40sp"
         app:layout_constraintTop_toTopOf="@id/picker_minute"
         app:layout_constraintBottom_toBottomOf="@id/picker_minute"
         app:layout_constraintStart_toEndOf="@id/picker_hour"
@@ -59,8 +59,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=":"
-        android:textSize="40dp"
+        android:text="@string/divider"
+        android:textSize="40sp"
         app:layout_constraintTop_toTopOf="@id/picker_minute"
         app:layout_constraintBottom_toBottomOf="@id/picker_minute"
         app:layout_constraintStart_toEndOf="@id/picker_minute"
@@ -70,8 +70,8 @@
         android:id="@+id/ambience_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select ambience"
-        android:textSize="20dp"
+        android:text="@string/select_ambience"
+        android:textSize="20sp"
         android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,19 +89,20 @@
             android:id="@+id/radio_button_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "None"
+            android:text = "@string/none"
             android:layout_weight="1"/>
         <RadioButton
             android:id="@+id/radio_button_grass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "Spring"
+            android:text = "@string/spring"
+
             android:layout_weight="1"/>
         <RadioButton
             android:id="@+id/radio_button_fire"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "Fireplace"
+            android:text = "@string/fireplace"
             android:layout_weight="1"/>
     </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>
