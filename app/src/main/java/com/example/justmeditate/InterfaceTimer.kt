@@ -1,6 +1,6 @@
 package com.example.justmeditate
 
-import android.content.Intent
+
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -8,16 +8,14 @@ import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import java.util.concurrent.TimeUnit
-import kotlin.properties.Delegates
+
 
 class InterfaceTimer : AppCompatActivity() {
     lateinit var textView : TextView
     private lateinit var timer: CountDownTimer
     private var timeLeftInMilis : Long = 0
-    var ambientId = 0
+    private var ambientId = 0
     private var isTimerRunning : Boolean = false
     private lateinit var pauseButton : Button
     private lateinit var stopButton: Button
