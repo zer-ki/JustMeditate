@@ -123,6 +123,7 @@ class InterfaceTimer : AppCompatActivity() {
     }
 
     private fun playAmbience() {
+        //play ambience according to user's choice
         if(ambientId==2131231225){
             mediaPlayerAmbience= MediaPlayer.create(this@InterfaceTimer, R.raw.spring_loop) }
         if(ambientId==2131231227){
