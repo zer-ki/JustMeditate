@@ -97,5 +97,11 @@
             android:layout_height="wrap_content"
             android:text = "Spring"
             android:layout_weight="1"/>
+        <RadioButton
+            android:id="@+id/radio_button_fire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "Fireplace"
+            android:layout_weight="1"/>
     </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

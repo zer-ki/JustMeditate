@@ -40,7 +40,7 @@ class InterfaceTimer : AppCompatActivity() {
         //put values into a variable recognized by the timer
         timeLeftInMilis = (hours*3600000+minutes*60000+seconds*1000).toLong()
         startTimer()
-        if (ambientId == 2131231225) playAmbience()
+        playAmbience()
 
 
         pauseButton = findViewById(R.id.button_pause)
@@ -50,7 +50,8 @@ class InterfaceTimer : AppCompatActivity() {
                 stopButton.visibility = View.VISIBLE}
             else{
                 startTimer()
-                playAmbience()
+                if(this@InterfaceTimer::mediaPlayerAmbience.isInitialized) {
+                mediaPlayerAmbience.start()}
                 pauseButton.text = "Pause"
                 stopButton.visibility = View.INVISIBLE}
         }
@@ -76,7 +77,7 @@ class InterfaceTimer : AppCompatActivity() {
                 updateTimerText()
             }
             override fun onFinish() {
-                textView.text = ambientId.toString()
+                textView.text = "Finished!"
                 isTimerRunning = false
 
                 //play the sound when finished
@@ -97,7 +98,9 @@ class InterfaceTimer : AppCompatActivity() {
 
     private fun pauseTimer(){
             timer.cancel()
-            mediaPlayerAmbience.pause()
+            if(this@InterfaceTimer::mediaPlayerAmbience.isInitialized) {
+                mediaPlayerAmbience.pause()
+            }
             pauseButton.text = "Resume"
             isTimerRunning = false
         }
@@ -119,16 +122,15 @@ class InterfaceTimer : AppCompatActivity() {
         textView.text = (hms)
     }
 
-    fun playAmbience() {
-        if(!this@InterfaceTimer::mediaPlayerAmbience.isInitialized){
-            mediaPlayerAmbience= MediaPlayer.create(this@InterfaceTimer, R.raw.spring_loop)
-            mediaPlayerAmbience.isLooping=true
-            mediaPlayerAmbience.start()
-        } else {
-            mediaPlayerAmbience.isLooping=true
-            mediaPlayerAmbience.start()
+    private fun playAmbience() {
+        if(ambientId==2131231225){
+            mediaPlayerAmbience= MediaPlayer.create(this@InterfaceTimer, R.raw.spring_loop) }
+        if(ambientId==2131231227){
+            mediaPlayerAmbience= MediaPlayer.create(this@InterfaceTimer, R.raw.fireplace_loop) }
+        mediaPlayerAmbience.isLooping=true
+        mediaPlayerAmbience.start()
         }
-    }
+
 
     override fun onStart() {
         super.onStart()
